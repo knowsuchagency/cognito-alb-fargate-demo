@@ -5,7 +5,7 @@ import os
 
 
 @dataclasses.dataclass
-class Config():
+class Config:
     """
     Represents the configuration options for this app
     """
@@ -14,6 +14,7 @@ class Config():
     cognito_custom_domain: str
     application_dns_name: str
     backend_desired_count: int
+    aws_account: int
 
 def get_config(path_to_config: str = None) -> Config:
     """

@@ -134,10 +134,17 @@ class DemoStack(core.Stack):
         Adds the ALB, ECS-Service and Cognito Login Action on the ALB.
         """
 
+        vpc = ec2.Vpc.from_lookup(
+            self,
+            "tf-managed-vpc",
+            vpc_name="TerraformManaged",
+        )
+
         # Create the ecs cluster to house our service, this also creates a VPC in 2 AZs
         cluster = ecs.Cluster(
             self,
-            "cluster"
+            "cluster",
+            vpc=vpc,
         )
 
         # Load the hosted zone

@@ -11,3 +11,9 @@ __pycache__
 cdk.out
 node_modules
 .vscode
+
+.idea/
+.venv/
+
+cdk.context.json
+configuration.ini

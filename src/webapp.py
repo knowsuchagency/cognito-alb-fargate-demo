@@ -18,29 +18,37 @@ ACCESS_TOKEN_HEADER_NAME = "x-amzn-oidc-accesstoken"
 IDENTITY_HEADER_NAME = "x-amzn-oidc-identity"
 SESSION_COOKIE_NAME = "AWSELBAuthSessionCookie-0"
 
-@app.route('/')
-def home():
-    """This is the endpoint for the main website, it displays the JWT"""
 
-    jwt_header = request.headers.get(JWT_HEADER_NAME)
-
-    #WARNING: In production you WANT to verify the signature!
-    jwt_decoded = jwt.decode(jwt_header, verify=False)
+@app.route("/")
+def index():
+    # TODO: fix the home controller
+    return "hello, world"
 
 
-    variables = {
-        "username": jwt_decoded.get("username", "N/A"),
-        "identity": request.headers.get(IDENTITY_HEADER_NAME),
-        "access_token": request.headers.get(ACCESS_TOKEN_HEADER_NAME),
-        "valid_until_utc": datetime.fromtimestamp(jwt_decoded["exp"],tz=pytz.UTC).isoformat(),
-        "jwt_decoded": json.dumps(jwt_decoded, indent=4),
-        "jwt_encoded": jwt_header,
-        "hostname": platform.node(),
-    }
+# @app.route('/')
+# def home():
+#     """This is the endpoint for the main website, it displays the JWT"""
+#
+#     jwt_header = request.headers.get(JWT_HEADER_NAME)
+#
+#     #WARNING: In production you WANT to verify the signature!
+#     jwt_decoded = jwt.decode(jwt_header, options={"verify_signature": False})
+#
+#
+#     variables = {
+#         "username": jwt_decoded.get("username", "N/A"),
+#         "identity": request.headers.get(IDENTITY_HEADER_NAME),
+#         "access_token": request.headers.get(ACCESS_TOKEN_HEADER_NAME),
+#         "valid_until_utc": datetime.fromtimestamp(jwt_decoded["exp"],tz=pytz.UTC).isoformat(),
+#         "jwt_decoded": json.dumps(jwt_decoded, indent=4),
+#         "jwt_encoded": jwt_header,
+#         "hostname": platform.node(),
+#     }
+#
+#     return render_template("index.html", **variables)
 
-    return render_template("index.html", **variables)
 
-@app.route('/logout')
+@app.route("/logout")
 def logout():
     """
     This handles the logout action for the app.
@@ -48,9 +56,7 @@ def logout():
 
     # Looks a little weird, but this is the only way to get an HTTPS redirect
     response = make_response(
-        redirect(
-            os.environ.get("LOGOUT_URL", f"https://{request.host}/")
-        )
+        redirect(os.environ.get("LOGOUT_URL", f"https://{request.host}/"))
     )
 
     # Invalidate the session cookie
@@ -58,11 +64,13 @@ def logout():
 
     return response
 
+
 @app.route("/healthcheck")
 def health_check():
     """Returns OK"""
 
     return render_template("health_check.html")
+
 
 @app.route("/userinfo")
 def user_info():
@@ -81,6 +89,6 @@ def user_info():
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-    app.run(debug=True, host='0.0.0.0', port=os.environ.get("PORT", 8080))
+    app.run(debug=True, host="0.0.0.0", port=os.environ.get("PORT", 8080))

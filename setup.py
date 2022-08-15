@@ -1,6 +1,6 @@
 import setuptools
 
-CDK_VERSION = "1.85.0"
+CDK_VERSION = "1.168.0"
 
 
 with open("README.md") as fp:

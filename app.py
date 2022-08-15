@@ -3,17 +3,24 @@
 
 from aws_cdk import core
 
-from infrastructure.demo_stack import DemoStack
 from infrastructure.configuration import get_config
+from infrastructure.demo_stack import DemoStack
+
 
 def main():
     """Wrapper for the CDK app"""
     app = core.App()
 
+    config = get_config()
+
     DemoStack(
         app,
         "cognito-alb-fargate-demo",
-        config=get_config()
+        config=config,
+        env={
+            "account": config.aws_account,
+            "region": "us-east-2",
+        },
     )
 
     app.synth()
