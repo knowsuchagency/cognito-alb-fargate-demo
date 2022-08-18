@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Entrypoint to the cognito alb fargate demo CDK app"""
 
-from aws_cdk import core
+from aws_cdk import App
 
 from infrastructure.configuration import get_config
 from infrastructure.demo_stack import DemoStack
@@ -9,7 +9,7 @@ from infrastructure.demo_stack import DemoStack
 
 def main():
     """Wrapper for the CDK app"""
-    app = core.App()
+    app = App()
 
     config = get_config()
 

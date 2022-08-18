@@ -1,6 +1,6 @@
 import setuptools
 
-CDK_VERSION = "1.168.0"
+CDK_VERSION = "2.37.0"
 
 
 with open("README.md") as fp:
@@ -21,10 +21,8 @@ setuptools.setup(
     packages=setuptools.find_packages(where="infrastructure"),
 
     install_requires=[
-        f"aws-cdk.core=={CDK_VERSION}",
-        f"aws-cdk.aws-ecs-patterns=={CDK_VERSION}",
-        f"aws-cdk.aws-cognito=={CDK_VERSION}",
-        f"aws-cdk.aws-elasticloadbalancingv2-actions=={CDK_VERSION}"
+        f"aws-cdk-lib=={CDK_VERSION}",
+        "constructs>=10.0.0,<11.0.0",
     ],
 
     python_requires=">=3.6",
